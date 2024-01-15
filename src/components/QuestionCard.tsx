@@ -9,13 +9,24 @@ import CardButton from './sharedUi/Buttons/CardButton';
 
 type QuestionCardProps = {
   question: QuestionType;
+  handlScores: () => void;
 };
 
-const QuestionCard = ({question}: QuestionCardProps) => {
-  const [selectedOption, setSelectedOption] = useState('Madrid');
+const QuestionCard = ({question, handlScores}: QuestionCardProps) => {
+  const [selectedOption, setSelectedOption] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
+  };
+
+  const handleSubmit = (answer: string) => {
+    if (answer !== question.correct) {
+      setMessage('Wrong Answer');
+      return;
+    }
+    setMessage('Correct Answer');
+    handlScores();
   };
 
   return (
@@ -27,6 +38,14 @@ const QuestionCard = ({question}: QuestionCardProps) => {
             Select the correct answer ({QUESTIONS.indexOf(question) + 1}/
             {QUESTIONS.length})
           </TextPara>
+          {message !== '' && (
+            <TextPara
+              color={
+                message === 'Wrong Answer' ? COLORS.error : COLORS.success
+              }>
+              {message}
+            </TextPara>
+          )}
         </View>
         <View className="px-1">
           {question.options.map((option, index) => (
@@ -39,7 +58,7 @@ const QuestionCard = ({question}: QuestionCardProps) => {
           ))}
         </View>
       </View>
-      <CardButton />
+      <CardButton handleSubmit={() => handleSubmit(selectedOption)} />
     </View>
   );
 };

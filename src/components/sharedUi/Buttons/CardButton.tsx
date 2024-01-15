@@ -3,9 +3,15 @@ import {TouchableOpacity} from 'react-native';
 import TextNormal from '../Texts/TextNormal';
 import {COLORS} from '../../../styles/colors';
 
-const CardButton = () => {
+type CardButtonProps = {
+  handleSubmit: () => void;
+};
+
+const CardButton = ({handleSubmit}: CardButtonProps) => {
   return (
-    <TouchableOpacity className="bg-indigo-400 py-4 items-center rounded-b">
+    <TouchableOpacity
+      onPress={handleSubmit}
+      className="bg-indigo-400 py-4 items-center rounded-b">
       <TextNormal color={COLORS.white}>Submit</TextNormal>
     </TouchableOpacity>
   );

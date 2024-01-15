@@ -5,6 +5,6 @@ export const COLORS = {
   black: '#434A50',
   accent: '#9FA8DA',
   placeholder: '#ACACAE',
-  error: '#FF0000',
-  success: '#00FF00',
+  error: '#F44336',
+  success: '#4CAF50',
 };
