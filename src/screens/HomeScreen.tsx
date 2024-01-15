@@ -7,7 +7,8 @@ import GameOverCard from '../components/GameOverCard';
 const HomeScreen = () => {
   const [questionNum, setQuestionNum] = useState(0);
   const [scores, setScores] = useState(0);
-  const handlScores = () => {
+
+  const handleScoreIncrement = () => {
     setScores(prev => prev + 1);
   };
 
@@ -21,13 +22,14 @@ const HomeScreen = () => {
 
   const resetGame = () => {
     setQuestionNum(0);
+    setScores(0);
   };
   return (
     <View className="flex-1 justify-center items-center bg-indigo-50">
       {questionNum !== -1 ? (
         <QuestionCard
           question={QUESTIONS[questionNum]}
-          handlScores={handlScores}
+          handlScoreIncrement={handleScoreIncrement}
           showNextQuestion={showNextQuestion}
         />
       ) : (

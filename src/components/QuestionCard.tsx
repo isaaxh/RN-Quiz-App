@@ -9,13 +9,13 @@ import CardButton from './sharedUi/Buttons/CardButton';
 
 type QuestionCardProps = {
   question: QuestionType;
-  handlScores: () => void;
+  handlScoreIncrement: () => void;
   showNextQuestion: () => void;
 };
 
 const QuestionCard = ({
   question,
-  handlScores,
+  handlScoreIncrement,
   showNextQuestion,
 }: QuestionCardProps) => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -30,11 +30,12 @@ const QuestionCard = ({
       setMessage('Please select an answer');
       return;
     }
-    if (answer !== question.correct) {
+    if (answer === question.correct) {
+      setMessage('Correct Answer');
+      handlScoreIncrement();
+    } else {
       setMessage('Wrong Answer');
     }
-    setMessage('Correct Answer');
-    handlScores();
     showNextQuestion();
     setMessage('');
     setSelectedOption('');
