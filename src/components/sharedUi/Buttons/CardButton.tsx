@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableHighlight} from 'react-native';
 import TextNormal from '../Texts/TextNormal';
 import {COLORS} from '../../../styles/colors';
 
@@ -9,11 +9,12 @@ type CardButtonProps = {
 
 const CardButton = ({handleSubmit}: CardButtonProps) => {
   return (
-    <TouchableOpacity
+    <TouchableHighlight
       onPress={handleSubmit}
+      underlayColor={COLORS.accent}
       className="bg-indigo-400 py-4 items-center rounded-b">
       <TextNormal color={COLORS.white}>Submit</TextNormal>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 };
 
