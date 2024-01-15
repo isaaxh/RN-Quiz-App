@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import TextPara from '../Texts/TextPara';
 import {COLORS} from '../../../styles/colors';
 
@@ -7,11 +7,19 @@ type RadioButtonProps = {
   text: string;
   selected: boolean;
   color?: string;
+  handleOptionSelect: (option: string) => void;
 };
 
-const RadioButton = ({text, selected, color}: RadioButtonProps) => {
+const RadioButton = ({
+  text,
+  selected,
+  color,
+  handleOptionSelect,
+}: RadioButtonProps) => {
   return (
-    <View className="flex-row items-center mt-4 cursor-pointer">
+    <TouchableOpacity
+      onPress={() => handleOptionSelect(text)}
+      className="flex-row items-center mt-4 cursor-pointer">
       <View
         style={[
           styles.outterCircle,
@@ -27,7 +35,7 @@ const RadioButton = ({text, selected, color}: RadioButtonProps) => {
         )}
       </View>
       <TextPara color={COLORS.black}>{text}</TextPara>
-    </View>
+    </TouchableOpacity>
   );
 };
 

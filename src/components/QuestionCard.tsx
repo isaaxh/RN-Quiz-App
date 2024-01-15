@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {COLORS} from '../styles/colors';
 import TextNormal from './sharedUi/Texts/TextNormal';
 import QUESTIONS, {QuestionType} from '../constants/questions';
@@ -12,6 +12,12 @@ type QuestionCardProps = {
 };
 
 const QuestionCard = ({question}: QuestionCardProps) => {
+  const [selectedOption, setSelectedOption] = useState('Madrid');
+
+  const handleOptionSelect = (option: string) => {
+    setSelectedOption(option);
+  };
+
   return (
     <View className="bg-white w-2/3 rounded shadow-2xl">
       <View className="px-6 py-8">
@@ -24,7 +30,12 @@ const QuestionCard = ({question}: QuestionCardProps) => {
         </View>
         <View className="px-1">
           {question.options.map((option, index) => (
-            <RadioButton key={index} text={option} selected={false} />
+            <RadioButton
+              key={index}
+              text={option}
+              selected={option === selectedOption}
+              handleOptionSelect={handleOptionSelect}
+            />
           ))}
         </View>
       </View>
