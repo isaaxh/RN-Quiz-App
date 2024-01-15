@@ -10,9 +10,14 @@ import CardButton from './sharedUi/Buttons/CardButton';
 type QuestionCardProps = {
   question: QuestionType;
   handlScores: () => void;
+  showNextQuestion: () => void;
 };
 
-const QuestionCard = ({question, handlScores}: QuestionCardProps) => {
+const QuestionCard = ({
+  question,
+  handlScores,
+  showNextQuestion,
+}: QuestionCardProps) => {
   const [selectedOption, setSelectedOption] = useState('');
   const [message, setMessage] = useState('');
 
@@ -21,12 +26,18 @@ const QuestionCard = ({question, handlScores}: QuestionCardProps) => {
   };
 
   const handleSubmit = (answer: string) => {
+    if (answer === '') {
+      setMessage('Please select an answer');
+      return;
+    }
     if (answer !== question.correct) {
       setMessage('Wrong Answer');
-      return;
     }
     setMessage('Correct Answer');
     handlScores();
+    showNextQuestion();
+    setMessage('');
+    setSelectedOption('');
   };
 
   return (
@@ -39,12 +50,7 @@ const QuestionCard = ({question, handlScores}: QuestionCardProps) => {
             {QUESTIONS.length})
           </TextPara>
           {message !== '' && (
-            <TextPara
-              color={
-                message === 'Wrong Answer' ? COLORS.error : COLORS.success
-              }>
-              {message}
-            </TextPara>
+            <TextPara color={COLORS.error}>{message}</TextPara>
           )}
         </View>
         <View className="px-1">
@@ -58,7 +64,10 @@ const QuestionCard = ({question, handlScores}: QuestionCardProps) => {
           ))}
         </View>
       </View>
-      <CardButton handleSubmit={() => handleSubmit(selectedOption)} />
+      <CardButton
+        text="Submit"
+        handleSubmit={() => handleSubmit(selectedOption)}
+      />
     </View>
   );
 };
