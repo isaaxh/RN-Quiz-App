@@ -1,4 +1,4 @@
-# React Native Timer App
+# React Native Quiz App
 
 ## Introduction
 
