@@ -45,4 +45,3 @@ Note: Make sure you have a device connected with debugging mode enabled
 Home Screen
 
 https://github.com/isaaxh/RN-Quiz-App/assets/98271596/be9bf628-d1c0-4290-9c69-5b45067b5a5d
-

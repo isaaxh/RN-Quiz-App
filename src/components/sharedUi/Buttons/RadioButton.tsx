@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import TextPara from '../Texts/TextPara';
 import {COLORS} from '../../../styles/colors';
@@ -7,6 +7,7 @@ type RadioButtonProps = {
   text: string;
   selected: boolean;
   color?: string;
+  disabled?: boolean;
   handleOptionSelect: (option: string) => void;
 };
 
@@ -14,22 +15,21 @@ const RadioButton = ({
   text,
   selected,
   color,
+  disabled,
   handleOptionSelect,
 }: RadioButtonProps) => {
   return (
     <TouchableOpacity
       onPress={() => handleOptionSelect(text)}
-      className="flex-row items-center mt-4 cursor-pointer">
+      disabled={disabled}
+      className="flex-row items-center mt-4">
       <View
-        style={[
-          styles.outterCircle,
-          {borderColor: color ? color : COLORS.accent},
-        ]}>
+        style={[styles.outterCircle, {borderColor: color ?? COLORS.accent}]}>
         {selected && (
           <View
             style={[
               styles.innerCircle,
-              {backgroundColor: color ? color : COLORS.accent},
+              {backgroundColor: color ?? COLORS.accent},
             ]}
           />
         )}

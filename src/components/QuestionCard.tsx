@@ -20,9 +20,11 @@ const QuestionCard = ({
 }: QuestionCardProps) => {
   const [selectedOption, setSelectedOption] = useState('');
   const [message, setMessage] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
+    setMessage('');
   };
 
   const handleSubmit = (answer: string) => {
@@ -36,9 +38,13 @@ const QuestionCard = ({
     } else {
       setMessage('Wrong Answer');
     }
-    showNextQuestion();
-    setMessage('');
-    setSelectedOption('');
+    setDisabled(true);
+    setTimeout(() => {
+      showNextQuestion();
+      setMessage('');
+      setSelectedOption('');
+      setDisabled(false);
+    }, 2000);
   };
 
   return (
@@ -50,8 +56,13 @@ const QuestionCard = ({
             Select the correct answer ({QUESTIONS.indexOf(question) + 1}/
             {QUESTIONS.length})
           </TextPara>
-          {message !== '' && (
-            <TextPara color={COLORS.error}>{message}</TextPara>
+          {message === '' ? null : (
+            <TextPara
+              color={
+                message === 'Correct Answer' ? COLORS.success : COLORS.error
+              }>
+              {message}
+            </TextPara>
           )}
         </View>
         <View className="px-1">
@@ -59,6 +70,7 @@ const QuestionCard = ({
             <RadioButton
               key={index}
               text={option}
+              disabled={disabled}
               selected={option === selectedOption}
               handleOptionSelect={handleOptionSelect}
             />
@@ -67,6 +79,7 @@ const QuestionCard = ({
       </View>
       <CardButton
         text="Submit"
+        disabled={disabled}
         handleSubmit={() => handleSubmit(selectedOption)}
       />
     </View>
