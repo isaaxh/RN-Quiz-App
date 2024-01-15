@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a Quiz app buit with `React-Native` Frame work.
+This is a Quiz app built with `React-Native` Frame work.
 
 ## Requirements
 
